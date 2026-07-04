@@ -1,18 +1,14 @@
-﻿
-string s ="c";
 
-Console.WriteLine(s.Length);
+Manager m1 = new Manager();
+m1.Salary = 1000m;
+m1.WorkingHours = 5;
+m1.Employees = new Employee();
+m1.Employees.Id = 1;
+m1.Employees.Name = "Test";
+m1.Employees.Position = "testPos";
 
-public class Creature
-{
-    public int Age;
-    public void Move()
-    {
-        Console.WriteLine("Creature is moving");
-    }
+Manager m2 = m1.Clone();
 
-    public void Eat()
-    {
-        Console.WriteLine("Creature is eating");
-    }
-}
+m1.Employees.Name = "new Name";
+
+Console.WriteLine(m2.Employees.Name);
