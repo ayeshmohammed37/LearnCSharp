@@ -40,3 +40,16 @@ for (int i = 0; i < 10; i++)
     Console.WriteLine();
 
 }
+
+if (player1Score > player2Score)
+{
+    Console.WriteLine("Player1 win!");
+}
+else if (player1Score < player2Score)
+{
+    Console.WriteLine("Player2 won!");
+}
+else
+{
+    Console.WriteLine("It's Draw");
+}
