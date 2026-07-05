@@ -1,7 +1,7 @@
 ﻿
 
-int num1 = default;
-int num2 = default;
+double num1 = default;
+double num2 = default;
 int operation = default;
 
 Console.WriteLine("Welcome to the Calculator Program!");
