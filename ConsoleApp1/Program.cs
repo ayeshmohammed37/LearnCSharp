@@ -1,14 +1,56 @@
+﻿namespace ConsoleApp1;
 
-Manager m1 = new Manager();
-m1.Salary = 1000m;
-m1.WorkingHours = 5;
-m1.Employees = new Employee();
-m1.Employees.Id = 1;
-m1.Employees.Name = "Test";
-m1.Employees.Position = "testPos";
+class Program
+{
+    static void Main(string[] args)
+    {
 
-Manager m2 = m1.Clone();
+        using (CurrencyService currencyService = new CurrencyService())
+        {
+            var result = currencyService.GetCurrencies();
+            Console.WriteLine(result);
+        }
+    }
+}
 
-m1.Employees.Name = "new Name";
+public class CurrencyService : IDisposable
+{
+    private readonly HttpClient httpClient;
+    private bool _disposed = false;
+    public CurrencyService()
+    {
+        httpClient = new HttpClient();
+    }
 
-Console.WriteLine(m2.Employees.Name);
+    ~CurrencyService()
+    {
+        Dispose(false);
+    }
+
+    public string GetCurrencies()
+    {
+        string url = "https://coinbase.com/api/v2/currencies";
+        var result = httpClient.GetStringAsync(url).Result;
+
+        return result;
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+            return;
+
+        if (disposing)
+        {
+            httpClient.Dispose();
+        }
+
+        _disposed = true;
+    }
+}

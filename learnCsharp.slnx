@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="/home/ayesh/ayesh_work/dev/learnCsharp/ConsoleApp1/ConsoleApp1.csproj" />
   <Project Path="Calculator/Calculator.csproj" />
+  <Project Path="ConsoleApp1/ConsoleApp1.csproj" />
   <Project Path="Dice/Dice.csproj" />
 </Solution>
