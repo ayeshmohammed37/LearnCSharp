@@ -4,53 +4,54 @@ class Program
 {
     static void Main(string[] args)
     {
+        
+        Example2();
+    }
 
-        using (CurrencyService currencyService = new CurrencyService())
+    static void Example1()
+    {
+        string path = "sample.txt";
+
+        using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
         {
-            var result = currencyService.GetCurrencies();
-            Console.WriteLine(result);
+            Console.WriteLine($"Lenght:   {fs.Length} Bytes");
+            Console.WriteLine($"Position: {fs.Position}");
+            Console.WriteLine($"CanRead: {fs.CanRead}");
+            Console.WriteLine($"CanWrite: {fs.CanWrite}");
+            Console.WriteLine($"CanSeek: {fs.CanSeek}");
+            Console.WriteLine($"CanTimeout: {fs.CanTimeout}");
+
+            // fs.Read()
+            
         }
+    }
+
+    static void Example2()
+    {
+        string path = "sample.txt";
+        // using (StreamWriter sw = new StreamWriter(path))
+        // {
+        //     sw.WriteLine("This");
+        //     sw.WriteLine("is");
+        //     sw.WriteLine("C#");
+        // }
+
+        StreamReader sr = new StreamReader(path);
+        var content = sr.ReadToEnd();
+        var by = File.ReadAllBytes(path);
+        // Console.WriteLine(by.Length);
+        // Console.WriteLine(content.Length);
+        int line = 0;
+        foreach (var i in content)
+        {
+            if (i == '\n')
+            {
+                line++;
+            }
+        }
+        Console.WriteLine(line);
+        Console.WriteLine(content);
+        // content.Cou
     }
 }
 
-public class CurrencyService : IDisposable
-{
-    private readonly HttpClient httpClient;
-    private bool _disposed = false;
-    public CurrencyService()
-    {
-        httpClient = new HttpClient();
-    }
-
-    ~CurrencyService()
-    {
-        Dispose(false);
-    }
-
-    public string GetCurrencies()
-    {
-        string url = "https://coinbase.com/api/v2/currencies";
-        var result = httpClient.GetStringAsync(url).Result;
-
-        return result;
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (_disposed)
-            return;
-
-        if (disposing)
-        {
-            httpClient.Dispose();
-        }
-
-        _disposed = true;
-    }
-}
